@@ -1,10 +1,10 @@
 from flask import Flask
-#from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL
 from flask_bootstrap import Bootstrap
 from config import DB_USERNAME, DB_PASSWORD, DB_NAME, DB_HOST, SECRET_KEY, BOOTSTRAP_SERVE_LOCAL
 #from flask_wtf.csrf import CSRFProtect
 
-#mysql = MySQL()
+mysql = MySQL()
 bootstrap = Bootstrap()
 
 def create_app(test_config=None):
@@ -18,7 +18,7 @@ def create_app(test_config=None):
         BOOTSTRAP_SERVE_LOCAL=BOOTSTRAP_SERVE_LOCAL
     )
     bootstrap.init_app(app)
-    #mysql.init_app(app)
+    mysql.init_app(app)
     #CSRFProtect(app)
 
     from .student import student_bp as student_blueprint
