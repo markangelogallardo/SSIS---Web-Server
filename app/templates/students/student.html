@@ -1,10 +1,12 @@
 {% extends "layout.html"%}
 
 {%block search%}
-<form class="d-flex flex-row mb-3 " role="search">
-  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success" type="submit">Search</button>
+
+<form class="d-flex flex-row mb-3 " role="search" method="get">
+  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch" onkeyup="myFunction()">
+  <button class="btn btn-outline-success" type="search">Search</button>
 </form>
+
 {%endblock search%}
 {%block table%}
 <table class="table">
@@ -19,8 +21,8 @@
         <th scope="col"></th>
       </tr>
     </thead>
-    <tbody>
-    {% for student in data %}
+    <tbody id="studDeats">
+      {% for student in data %}
       <tr>
         <td>{{student[0]}}</td>
         <td>{{student[1]}}</td>
@@ -32,8 +34,10 @@
           <button class="btn-sm btn-warning">Edit</button> 
           <button class="btn-sm btn-danger btn-delete">Delete</button>
         </td>
-    {% endfor %}
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
 
+  <script src="static/js/search.js"></script>
 {%endblock table%}
