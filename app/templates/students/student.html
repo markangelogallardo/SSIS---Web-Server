@@ -1,9 +1,24 @@
 {% extends "layout.html"%}
 
-{%block search%}
+{%block add%}
+ <button class="btn btn-outline-info btn-sm" style="white-space: nowrap" type="search">Add Student</button>
+{% endblock add %}
 
+{%block search%}
 <form class="d-flex flex-row mb-3 " role="search" method="get">
-  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch" onkeyup="myFunction()">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Search By
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#" value="ID Number">ID Number</a>
+      <a class="dropdown-item" href="#" value="Name">Name</a>
+      <a class="dropdown-item" href="#" value="Program Code">Program Code</a>
+      <a class="dropdown-item" href="#" value="Year Level">Year Level</a>
+      <a class="dropdown-item" href="#" value="Gender">Gender</a>
+    </div>
+  </div>
+  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch" onkeyup="myFunction()"/>
   <button class="btn btn-outline-success" type="search">Search</button>
 </form>
 
@@ -40,4 +55,5 @@
   </table>
 
   <script src="static/js/search.js"></script>
+
 {%endblock table%}

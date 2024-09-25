@@ -18,4 +18,16 @@ th, td {
     margin-left: auto; 
 }
 
+.btn-outline-info{
+    size: 10%;
+}
+
+.form-control{
+    margin-left: 2%;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
  

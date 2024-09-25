@@ -17,9 +17,9 @@ function myFunction(){
         for(j=0;j<6;j++){
             td = tr[i].getElementsByTagName("td")[j];
             text = td.textContent || td.innerText;
-            console.log(tr[i])   
             if (text.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
+                console.log(text)   
             } else {
                 tr[i].style.display = "none";
             }
@@ -27,6 +27,9 @@ function myFunction(){
     }
 }
 
+$('button').change(function(){
+    $('#dropdownMenuButton').val();
+ });
 
 
 
