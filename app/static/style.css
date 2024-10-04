@@ -30,4 +30,20 @@ th, td {
     display: block;
   }
 
+.row {
+    padding-bottom: 1%;
+  }
  
+.hyphen {
+    margin-right: -15px;
+    margin-left: 5px;
+    font-size: 1.5rem;
+}
+
+.form-select{
+    margin-left:10px;
+}
+
+.col-sm-5{
+    margin-left:15px;
+}

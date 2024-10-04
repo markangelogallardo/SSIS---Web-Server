@@ -1,0 +1,64 @@
+{% extends "add_layout.html"%}
+
+{%block form%}
+<form>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">ID Number:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="2022">
+        </div>
+        <div class="col-auto my-auto">  
+            <span class="hyphen">-</span>  
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="0182">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="First name">
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Last name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Program Code:</label>
+        <div class="col-sm-3">
+            <select id="inputState" class="form-select">
+                <option selected>Choose...</option>
+                {%for code in data%}
+                <option>{{code[3]}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Year Level:</label>
+        <div class="col-sm-1">
+            <select id="inputState" class="form-select">
+                <option selected>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Gender:</label>
+        <div class="col-sm-2">
+            <select id="inputState" class="form-select">
+                <option selected>Rather not specify</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-5">
+            <button type="submit" class="btn btn-primary">Add Sudent</button>
+        </div>
+    </div>
+</form>
+{%endblock form%}

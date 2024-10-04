@@ -1,7 +1,7 @@
-{% extends "layout.html"%}
+{% extends "home_layout.html"%}
 
 {%block add%}
- <button class="btn btn-outline-info btn-sm" style="white-space: nowrap" type="search">Add Student</button>
+ <button onclick="window.location = 'student/add'" class="btn btn-outline-info btn-sm" style="white-space: nowrap" type="search">Add Student</button>
 {% endblock add %}
 
 {%block search%}

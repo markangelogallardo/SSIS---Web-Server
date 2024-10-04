@@ -8,3 +8,14 @@ import app.models as models
 def index():
     students = models.Students.all()
     return render_template('students/student.html', data=students, title='Home',something='something')
+
+@student_bp.route('/student/add', methods=['POST','GET'])
+def register():
+    students = models.Students.all()
+    form = UserForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = models.Users(email=form.email.data, password=form.password.data,username=form.username.data)
+        user.add()
+        return redirect('/')
+    else:
+        return render_template('students/add_student.html', data=students, title='Home')
