@@ -1,13 +1,73 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends "home_layout.html"%}
 
 {%block add%}
- <button onclick="window.location = 'student/add'" class="btn btn-outline-info btn-sm" style="white-space: nowrap" type="search">Add Student</button>
+ <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+  Add Student
+</button>
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">Add Student</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="row mb-3 ">
+                {{ form.id_num.label(class="col-sm-3 col-form-label") }}
+                <div class="col-sm-8">
+                  {{ form.id_num(class="form-control",  placeholder="eg. 2022-0182") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                {{ form.first_name.label(class="col-sm-3 col-form-label") }}
+                <div class="col-sm-8">
+                  {{ form.first_name(class="form-control") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                {{ form.last_name.label(class="col-sm-3 col-form-labell") }}
+                <div class="col-sm-8">
+                  {{ form.last_name(class="form-control") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                {{ form.prog_code.label(class="col-sm-3 col-form-labell") }}
+                <div class="col-sm-8">
+                  {{ form.prog_code(class="form-control", id="prog_code") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                {{ form.year.label(class="col-sm-3 col-form-label") }}
+                <div class="col-sm-8">
+                  {{ form.year(class="form-select") }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                {{ form.gender.label(class="col-sm-3 col-form-label") }}
+                <div class="col-sm-8">
+                  {{ form.gender(class="form-select") }}
+                </div>
+            </div>
+            <button type="submit" id="add-student"class="btn btn-primary">{{ form.add.label }}</button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 {% endblock add %}
 
 {%block search%}
+
 <form class="d-flex flex-row mb-3 " role="search" method="get">
   <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch"/>
-  <button class="btn btn-outline-success" type="search">Search</button>
 </form>
 
 {%endblock search%}
@@ -42,6 +102,5 @@
     </tbody>
   </table>
 
-  <script src="static/js/search.js"></script>
 
 {%endblock table%}

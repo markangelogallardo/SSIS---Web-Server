@@ -14,10 +14,10 @@ class Students(object):
     def add(self):
         cursor = mysql.connection.cursor()
 
-        sql = f"INSERT INTO students(ID_Number,First_Name,Last_Name,Program_Code,Year_Level,Gender) \
-                VALUES('{self.id}',('{self.f_name}'),'{self.l_name}','{self.prog}','{self.year_lvl}','{self.gender}')" 
+        sql = """INSERT INTO students(ID_Number,First_Name,Last_Name,Program_Code,Year_Level,Gender)
+                VALUES(%s, %s, %s, %s, %s, %s)""" 
 
-        cursor.execute(sql)
+        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender))
         mysql.connection.commit()
 
     @classmethod
@@ -28,3 +28,15 @@ class Students(object):
         result = cursor.fetchall()
         return result
     
+class Programs(object):
+    def __init__(self, prog_code=None, prog_name=None):
+        self.prog_code = prog_code
+        self.prog_name = prog_name
+
+    @classmethod
+    def all(cls):
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM programs"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result
