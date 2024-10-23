@@ -2,66 +2,10 @@
 {% extends "home_layout.html"%}
 
 {%block add%}
- <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-  Add Student
-</button>
-<!-- Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addModalLabel">Add Student</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="row mb-3 ">
-                {{ form.id_num.label(class="col-sm-3 col-form-label") }}
-                <div class="col-sm-8">
-                  {{ form.id_num(class="form-control",  placeholder="eg. 2022-0182") }}
-                </div>
-            </div>
-            <div class="row mb-3">
-                {{ form.first_name.label(class="col-sm-3 col-form-label") }}
-                <div class="col-sm-8">
-                  {{ form.first_name(class="form-control") }}
-                </div>
-            </div>
-            <div class="row mb-3">
-                {{ form.last_name.label(class="col-sm-3 col-form-labell") }}
-                <div class="col-sm-8">
-                  {{ form.last_name(class="form-control") }}
-                </div>
-            </div>
-            <div class="row mb-3">
-                {{ form.prog_code.label(class="col-sm-3 col-form-labell") }}
-                <div class="col-sm-8">
-                  {{ form.prog_code(class="form-control", id="prog_code") }}
-                </div>
-            </div>
-            <div class="row mb-3">
-                {{ form.year.label(class="col-sm-3 col-form-label") }}
-                <div class="col-sm-8">
-                  {{ form.year(class="form-select") }}
-                </div>
-            </div>
-            <div class="row mb-3">
-                {{ form.gender.label(class="col-sm-3 col-form-label") }}
-                <div class="col-sm-8">
-                  {{ form.gender(class="form-select") }}
-                </div>
-            </div>
-            <button type="submit" id="add-student"class="btn btn-primary">{{ form.add.label }}</button>
-        </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
+<form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
+  <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>
+</form>
+
 {% endblock add %}
 
 {%block search%}
@@ -94,8 +38,18 @@
         <td>{{student[4]}}</td>
         <td>{{student[5]}}</td>
         <td>
-          <button class="btn-sm btn-warning">Edit</button> 
-          <button class="btn-sm btn-danger btn-delete">Delete</button>
+          <div class="row" id="button-container">
+            <div class="col" id="edit-del">
+              <form action="{{ url_for('student.edit_student') }}" method="get">
+                <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
+              </form>
+            </div>
+            <div class="col" id="edit-del">
+              <form action="{{ url_for('student.edit_student', student_id=student[0]) }}" method="get">
+                <button type="submit" class="btn btn-danger">Delete</button> 
+              </form>
+            </div>
+          </div>
         </td>
       </tr>
       {% endfor %}

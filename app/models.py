@@ -28,6 +28,23 @@ class Students(object):
         result = cursor.fetchall()
         return result
     
+    def get(id_num):
+        cursor = mysql.connection.cursor()
+        sql = "Select * FROM students WHERE ID_Number = '{id_num}'"
+        cursor.execute(sql)
+        return cursor.fetchone()
+
+    def input_error(error):
+        if(error.args[0] == 1062):
+            err_cause = error.args[1].split("'")[1]
+            if(len(err_cause) == 9 and err_cause[4]=='-'):
+                return f"Inputted ID Number '{err_cause}' already exists. Plz Change."
+            else:
+                name = err_cause.replace("-", " ")
+                return f"Inputted name '{name}' already exists."
+        else:
+            return f"not expected error"
+    
 class Programs(object):
     def __init__(self, prog_code=None, prog_name=None):
         self.prog_code = prog_code

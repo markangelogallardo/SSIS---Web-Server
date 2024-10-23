@@ -6,7 +6,7 @@
  
 
 
- table {
+table {
     border-spacing: 10x; 
 }
 
@@ -57,3 +57,8 @@ th, td {
       flex-direction: column;
     }
   }
+
+#edit-del{
+    display: flex;
+    gap:1px
+}
