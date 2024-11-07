@@ -1,67 +1,81 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% extends "home_layout.html"%}
 
-{%block add%}
-<form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
-  <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>
-</form>
+{% block navbar %}
+<div class = "container-fluid">
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Programs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" aria-disabled="true">Colleges</a>
+          </li>
+          <li class="nav-item right" href="#"></li>
+            <form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
+              <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>
+            </form>
+          </li>
+          <li class="nav-item right" href="#">
+            <form class="d-flex flex-row mb-3 " role="search" method="get">
+              <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch"/>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>
+{%- endblock navbar %}
 
-{% endblock add %}
-
-{%block search%}
-
-<form class="d-flex flex-row mb-3 " role="search" method="get">
-  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch"/>
-</form>
-
-{%endblock search%}
-{%block table%}
-<table class="table">
-    <thead>
-      <tr id="columns">
-        <th scope="col">ID Number</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Program Code</th>
-        <th scope="col">Year Level</th>
-        <th scope="col">Gender</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody id="studDeats">
-      {% for student in data %}
-      <tr>
-        <td>{{student[0]}}</td>
-        <td>{{student[1]}}</td>
-        <td>{{student[2]}}</td>
-        <td>{{student[3]}}</td>
-        <td>{{student[4]}}</td>
-        <td>{{student[5]}}</td>
-        <td>
-          <div class="row" id="button-container">
-            <div class="col" id="editBtn">
-              <form action="{{ url_for('student.edit_student', student_id= student[0]) }}" method="get">
-                <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
-              </form>
+{%block content%}
+<div class="card-body">
+  <table class="table">
+      <thead>
+        <tr id="columns">
+          <th scope="col">ID Number</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Program Code</th>
+          <th scope="col">Year Level</th>
+          <th scope="col">Gender</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody id="studDeats">
+        {% for student in data %}
+        <tr>
+          <td>{{student[0]}}</td>
+          <td>{{student[1]}}</td>
+          <td>{{student[2]}}</td>
+          <td>{{student[3]}}</td>
+          <td>{{student[4]}}</td>
+          <td>{{student[5]}}</td>
+          <td>
+            <div class="row" id="button-container">
+              <div class="col" id="editBtn">
+                <form action="{{ url_for('student.edit_student', student_id= student[0]) }}" method="get">
+                  <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
+                </form>
+              </div>
+              <div class="col">
+                <form action="{{ url_for('student.delete_student', student_id= student[0]) }}" method="get">
+                  <button class="delBtn btn btn-danger" data-id="{{student[0]}}" >Delete</button> 
+                </form>
+              </div>
             </div>
-            <div class="col">
-              <form action="{{ url_for('student.delete_student', student_id= student[0]) }}" method="get">
-                <button class="delBtn btn btn-danger" data-id="{{student[0]}}" >Delete</button> 
-              </form>
-            </div>
-          </div>
-        </td>
-      </tr>
-      
-      {% endfor %}
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
   {%block scripts%}
   {{super()}}
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
-  
-    
+  <script src="static/js/students/search.js"></script>
+  <script src="static/js/students/delStudModal.js"></script>
   {%endblock scripts%}
-{%endblock table%}
+{%endblock content%}
