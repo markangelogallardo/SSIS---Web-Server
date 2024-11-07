@@ -58,7 +58,11 @@ th, td {
     }
   }
 
-#edit-del{
+#editBtn{
+    display: flex;
+    gap:1px
+}
+#delBtn{
     display: flex;
     gap:1px
 }

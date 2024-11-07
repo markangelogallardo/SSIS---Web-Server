@@ -39,22 +39,29 @@
         <td>{{student[5]}}</td>
         <td>
           <div class="row" id="button-container">
-            <div class="col" id="edit-del">
-              <form action="{{ url_for('student.edit_student') }}" method="get">
+            <div class="col" id="editBtn">
+              <form action="{{ url_for('student.edit_student', student_id= student[0]) }}" method="get">
                 <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
               </form>
             </div>
-            <div class="col" id="edit-del">
-              <form action="{{ url_for('student.edit_student', student_id=student[0]) }}" method="get">
-                <button type="submit" class="btn btn-danger">Delete</button> 
+            <div class="col">
+              <form action="{{ url_for('student.delete_student', student_id= student[0]) }}" method="get">
+                <button class="delBtn btn btn-danger" data-id="{{student[0]}}" >Delete</button> 
               </form>
             </div>
           </div>
         </td>
       </tr>
+      
       {% endfor %}
     </tbody>
   </table>
-
-
+  {%block scripts%}
+  {{super()}}
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
+  
+    
+  {%endblock scripts%}
 {%endblock table%}

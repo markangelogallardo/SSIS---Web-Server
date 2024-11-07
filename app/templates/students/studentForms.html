@@ -1,8 +1,7 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
     <div class="modal-header">
-        
-        <h5 class="modal-title" id="addModalLabel">Add Student</h5>
+        <h5 class="modal-title" id="addModalLabel">{{title}}</h5>
         {% with messages = get_flashed_messages(with_categories = True)%}
             {% if messages%}
                 {% for category, message in messages%}
@@ -20,7 +19,7 @@
             <div class="row mb-3 ">
                 {{ form.id_num.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                {{ form.id_num(id="idNum", class="form-control",  placeholder="eg. 2022-0182") }}
+                {{ form.id_num(id="idNum", class="form-control",  placeholder=request.path) }}
                 </div>
             </div>
             <div class="row mb-3">
@@ -66,4 +65,3 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="static/js/students/studentForms.js"></script>

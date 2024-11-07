@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `students`(
 	`ID_Number` CHAR(9) NOT NULL,
 	`First_Name` VARCHAR(50) NOT NULL,
 	`Last_Name` VARCHAR(50) NOT NULL,
-	`Program_Code`VARCHAR(10),
+	`Program_Code`VARCHAR(20),
 	`Year_Level` ENUM("1st year", "2nd year", "3rd year", "4th year") NOT NULL,
 	`Gender` ENUM("Male", "Female", "Rather not specify") NOT NULL,
 	CONSTRAINT `pk_ID_Number` PRIMARY KEY(`ID_Number`),

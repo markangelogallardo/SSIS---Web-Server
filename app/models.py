@@ -19,6 +19,23 @@ class Students(object):
 
         cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender))
         mysql.connection.commit()
+    def edit(self):
+        cursor = mysql.connection.cursor()
+        sql = """UPDATE students SET ID_Number = %s, First_Name = %s, Last_Name = %s, Program_Code = %s, Year_Level = %s, Gender = %s WHERE ID_Number = %s"""
+        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender, self.id))
+        mysql.connection.commit()
+
+    @classmethod
+    def delete(cls, student_id):
+        try:
+            cursor = mysql.connection.cursor()
+            sql = """DELETE FROM students WHERE ID_Number = %s"""
+            cursor.execute(sql, (student_id,))
+            mysql.connection.commit()
+            return True
+        except:
+            return False
+    
 
     @classmethod
     def all(cls):
@@ -30,8 +47,9 @@ class Students(object):
     
     def get(id_num):
         cursor = mysql.connection.cursor()
-        sql = "Select * FROM students WHERE ID_Number = '{id_num}'"
-        cursor.execute(sql)
+        val = (id_num,)
+        sql = "SELECT * FROM students WHERE ID_Number = %s"
+        cursor.execute(sql, val)
         return cursor.fetchone()
 
     def input_error(error):
@@ -43,7 +61,7 @@ class Students(object):
                 name = err_cause.replace("-", " ")
                 return f"Inputted name '{name}' already exists."
         else:
-            return f"not expected error"
+            return error.args[1]
     
 class Programs(object):
     def __init__(self, prog_code=None, prog_name=None):
