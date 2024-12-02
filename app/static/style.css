@@ -3,66 +3,129 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
- 
 
 
-table {
-    border-spacing: 10x; 
-}
-
-th, td {
-    padding: 5x; 
-}
-
-.navbar {
-    display: flex;
-  }
-
-.nav-item.right {
-    margin-left: auto; 
-}
-
-.btn-outline-info{
-    size: 10%;
-}
-
-.form-control{
-    margin-left: 2%;
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
-  }
-
-.row {
-    padding-bottom: 1%;
-  }
- 
-.hyphen {
-    margin-right: -15px;
-    margin-left: 5px;
-    font-size: 1.5rem;
-}
-
-.form-select{
-    margin-left:10px;
-}
-
-.col-sm-5{
-    margin-left:15px;
-}
-
-@media screen and (max-width: 700px) {
-    .row, .navbar {   
-      flex-direction: column;
+@media only screen and (min-width: 960px) {
+    /* styles for browsers larger than 960px; */
+    table {
+        border-spacing: 10x; 
     }
-  }
+    
+    th, td {
+        padding: 5x; 
+    }
+    
+    .navbar {
+        display: flex;
+      }
+    
+    .nav-item.right {
+        margin-left: auto; 
+    }
+    
+    .btn-outline-info{
+        size: 10%;
+    }
+    
+    .form-control{
+        margin-left: 2%;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+    
+    .row {
+        padding-bottom: 1%;
+      }
+     
+    .hyphen {
+        margin-right: -15px;
+        margin-left: 5px;
+        font-size: 1.5rem;
+    }
+    .close {
+        position: absolute;
+        right: 32px;
+        width: 24px;
+        height: 24px;
+        opacity: 0.3;
+      }
+      .close:hover {
+        opacity: 1;
+      }
+      .close:before, .close:after {
+        position: absolute;
+        left: 15px;
+        content: ' ';
+        height: 24px;
+        width: 2px;
+        background-color: #333;
+      }
+      .close:before {
+        transform: rotate(45deg);
+      }
+      .close:after {
+        transform: rotate(-45deg);
+      }
+    
+    
+    @media screen and (max-width: 700px) {
+        .row, .navbar {   
+          flex-direction: column;
+        }
+      }
+    
+    #editBtn{
+        display: flex;
+        gap:1px
+    }
+    #delBtn{
+        display: flex;
+        gap:1px
+    }
+    .select2-selection {
+        margin-left: 10px;
+        
+    }
+    
+    .form-select{
+        margin-left:10px;
+    }
+    
+    .col-sm-5{
+        margin-left:15px;
+    }
+    
+    .select2-selection{
+        margin-left: 10px;
+        max-width: 720px;
+        width: 100.1%;
+        min-width: 10px;
+        
+    }
+    
+    .select2-dropdown{
+        margin-left: 10px;
+    }
 
-#editBtn{
-    display: flex;
-    gap:1px
+    #errorMessage{
+        margin-right: 125px;
+    }
 }
-#delBtn{
-    display: flex;
-    gap:1px
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+}
+@media only screen and (min-width: 2000px) {
+    /* for sumo sized (mac) screens */
+}
+@media only screen and (max-width: 480px) and (min-width: 720px) {
+   /* styles for mobile browsers smaller than 480px; (iPhone) */
+   .select2-selection{
+    margin-left: 10px;
+    width: 25%;
+    }
+    .select2-dropdown{
+        margin-left: 10px;
+    }
 }

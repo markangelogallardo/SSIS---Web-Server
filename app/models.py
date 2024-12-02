@@ -60,8 +60,6 @@ class Students(object):
             else:
                 name = err_cause.replace("-", " ")
                 return f"Inputted name '{name}' already exists."
-        else:
-            return error.args[1]
     
 class Programs(object):
     def __init__(self, prog_code=None, prog_name=None):

@@ -1,4 +1,7 @@
 {% extends "home_layout.html"%}
+{%- block styles %}
+{{super()}}
+{%- endblock styles %}
 {%block content%}
 
 <div class="modal-dialog modal-lg" role="document">
@@ -9,12 +12,11 @@
             {% if messages%}
                 {% for category, message in messages%}
                     <div class="alert alert-{{category}}" id="errorMessage">{{message}}</div>
+                    <div></div>
                 {%endfor%}
             {%endif%}
         {%endwith%}
-        <a href="{{ url_for('student.index') }}" type="button" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </a>
+        <a href="{{ url_for('student.index') }}" type="button" class="close" aria-label="Close"></a>
     </div>
     <div class="modal-body" id="studForm">
         <form method="POST" id="student-form">
@@ -22,52 +24,56 @@
             <div class="row mb-3 ">
                 {{ form.id_num.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182")}}
+                    {% if title == "Edit Student"%}
+                        {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182", disabled_="disabled")}}
+                    {%else%}
+                        {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182")}}
+                    {%endif%}
+
                 </div>
             </div>
             <div class="row mb-3">
                 {{ form.first_name.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                {{ form.first_name(id="firstName", class="form-control") }}
+                    {{ form.first_name(id="firstName", class="form-control") }}
                 </div>
             </div>
             <div class="row mb-3">
                 {{ form.last_name.label(class="col-sm-3 col-form-labell") }}
                 <div class="col-sm-8">
-                {{ form.last_name(id="lastName", class="form-control") }}
+                    {{ form.last_name(id="lastName", class="form-control") }}
                 </div>
             </div>
             <div class="row mb-3">
                 {{ form.prog_code.label(class="col-sm-3 col-form-labell") }}
                 <div class="col-sm-8">
-                {{ form.prog_code(class="form-control", id="prog_code") }}
+                    {{ form.prog_code(class="form-control", id="prog_code") }}
                 </div>
             </div>
             <div class="row mb-3">
                 {{ form.year.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                {{ form.year(class="form-select") }}
+                    {{ form.year(class="form-select") }}
                 </div>
             </div>
             <div class="row mb-3">
                 {{ form.gender.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                {{ form.gender(class="form-select") }}
+                    {{ form.gender(class="form-select") }}
                 </div>
             </div>
-            <button type="submit" id="add-student"class="btn btn-primary">{{ form.add.label }}</button>
-            
+            <button type="submit" id="confirm-student" class="btn btn-primary" >{{ title }}</button>
         </form>
     </div>
     </div>
 </div>
-
-{%- endblock content %}
-
 {% block scripts %} 
 {{super()}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="static/js/students/progChoice.js"></script>
+    <script src="{{ url_for('static', filename='js/students/progChoice.js') }}"></script>
 {%- endblock scripts %}
+
+{%- endblock content %}
+

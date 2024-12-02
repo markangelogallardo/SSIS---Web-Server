@@ -22,6 +22,8 @@ def add_student():
     year_lvl = form.year.data
     gender = form.gender.data
     form.prog_code.choices = [(None, "Not Enrolled")] + [(program[0], program[0] + " (" + program[1] +")") for program in programs]
+    if request.method == "GET":
+        return render_template('students/studentForms.html', title='Add Student', form=form)
     if request.method == 'POST': 
         if form.validate():
             add_student = models.Students(id_num=id_num, 
@@ -32,16 +34,9 @@ def add_student():
                                     gender=gender)
             try:
                 add_student.add()
-                #return jsonify(success=True)
-                flash(f"Student has been succesfully added!", "success")
             except mysql.connection.Error as e:
                 flash(models.Students.input_error(e), "danger")
-                #return jsonify({'error': models.Students.input_error(e)})
-                
-        else:
-            flash(f"Student has been succesfully added!", "success")
-            #return redirect('/student')
-        
+
     return render_template('students/studentForms.html', title='Add Student', form=form)
 
 @student_bp.route('/student/edit/<student_id>', methods=['POST','GET'])
@@ -84,14 +79,8 @@ def edit_student(student_id):
 @student_bp.route('/student/delete/<student_id>', methods=['POST', 'GET'])
 def delete_student(student_id):
     if request.method == "GET":
-        '''if models.Students.delete(student_id):
-            return jsonify(success=True,message="Successfully deleted")
-        else:
-            return jsonify(success=False,message="Failed") '''
         try:
             models.Students.delete(student_id)
-            #return jsonify(success=True,message="Successfully deleted")
         except:
             flash(f"Unable to delete", "danger")
-            #return jsonify(success=False,message="Failed")
     return redirect(url_for('student.index'))
