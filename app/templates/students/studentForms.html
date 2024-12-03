@@ -2,6 +2,8 @@
 {%- block styles %}
 {{super()}}
 {%- endblock styles %}
+{% block navbar %}
+{%- endblock navbar %}
 {%block content%}
 
 <div class="modal-dialog modal-lg" role="document">
@@ -16,7 +18,7 @@
                 {%endfor%}
             {%endif%}
         {%endwith%}
-        <a href="{{ url_for('student.index') }}" type="button" class="close" aria-label="Close"></a>
+        <a href="{{ url_for('student.student_page') }}" type="button" class="close" aria-label="Close"></a>
     </div>
     <div class="modal-body" id="studForm">
         <form method="POST" id="student-form">

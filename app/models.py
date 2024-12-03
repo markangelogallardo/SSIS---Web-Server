@@ -74,3 +74,29 @@ class Programs(object):
         cursor.execute(sql)
         result = cursor.fetchall()
         return result
+    
+    def add(self):
+        cursor = mysql.connection.cursor()
+
+        sql = """INSERT INTO programs(Program_Code,Program_Name,College_Code)
+                VALUES(%s, %s, %s)""" 
+        cursor.execute(sql, (self.prog_code, self.prog_name, self.college_code))
+        mysql.connection.commit()
+
+    def input_error(error):
+        if(error.args[0] == 1062):
+            err_cause = error.args[1].split("'")[1]
+            return f"Inputted program '{err_cause}' already exists."
+
+class Colleges(object):
+    def __init__(self, college_code=None, college_name=None):
+        self.college_code = college_code
+        self.college_name = college_name
+
+    @classmethod
+    def all(cls):
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM colleges"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        return result

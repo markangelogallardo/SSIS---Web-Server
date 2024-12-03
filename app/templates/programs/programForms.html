@@ -1,0 +1,56 @@
+{% extends "home_layout.html"%}
+{%- block styles %}
+{{super()}}
+{%- endblock styles %}
+{% block navbar %}
+{%- endblock navbar %}
+
+{%block content%}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addModalLabel">{{title}}</h5>
+            {% with messages = get_flashed_messages(with_categories = True)%}
+                {% if messages%}
+                    {% for category, message in messages%}
+                        <div class="alert alert-{{category}}" id="errorMessage">{{message}}</div>
+                        <div></div>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+            <a href="{{ url_for('program.program_page') }}" type="button" class="close" aria-label="Close"></a>
+        </div>
+        <div class="modal-body" id="progForm">
+            <form method="POST" id="program-form">
+                {{ form.hidden_tag() }}
+                <div class="row mb-3 ">
+                    {{ form.prog_code.label(class="col-sm-3 col-form-label") }}
+                    <div class="col-sm-8">
+                        {{ form.prog_code(id="progCode", class="form-control")}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    {{ form.prog_name.label(class="col-sm-3 col-form-label") }}
+                    <div class="col-sm-8">
+                        {{ form.prog_name(id="progName", class="form-control") }}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    {{ form.college_code.label(class="col-sm-3 col-form-labell") }}
+                    <div class="col-sm-8">
+                        {{ form.college_code(id="collegeCode", class="form-control") }}
+                    </div>
+                </div>
+                <button type="submit" id="confirm-student" class="btn btn-primary" >{{ title }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% block scripts %} 
+{{super()}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="{{ url_for('static', filename='js/programs/collegeChoice.js') }}"></script>
+{%- endblock scripts %}
+{%- endblock content %}
