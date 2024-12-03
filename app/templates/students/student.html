@@ -1,20 +1,42 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% extends "home_layout.html"%}
 
+{%- block styles %}
+{{super()}}
+{%- endblock styles %}
+
 {% block navbar %}
 <div class = "container-fluid">
     <div class="card text-center">
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Students</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Programs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" aria-disabled="true">Colleges</a>
-          </li>
+          {% if title == "Students"%}
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">Students</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link " href="#">Students</a>
+            </li>
+          {%endif%}
+          {% if title == "Programs"%}
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">Programs</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">Programs</a>
+            </li>
+          {%endif%}
+          {% if title == "Colleges"%}
+            <li class="nav-item active">
+              <a class="nav-link active" href="#" aria-disabled="true">Colleges</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#" aria-disabled="true">Colleges</a>
+            </li>
+          {%endif%}
           <li class="nav-item right" href="#"></li>
             <form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
               <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>

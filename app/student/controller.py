@@ -7,10 +7,11 @@ import numpy as np
 
 @student_bp.route('/student', methods=['POST','GET'])
 @student_bp.route('/', methods=['POST', 'GET'])
-def index():
+def student_page():
     students = models.Students.all()
-    return render_template('students/student.html', data=students, title='Home')
-    
+    return render_template('students/student.html', data=students, title='Students')
+
+
 @student_bp.route('/student/add', methods=['POST','GET'])
 def add_student():
     form = StudentForm(request.form)
@@ -84,3 +85,4 @@ def delete_student(student_id):
         except:
             flash(f"Unable to delete", "danger")
     return redirect(url_for('student.index'))
+

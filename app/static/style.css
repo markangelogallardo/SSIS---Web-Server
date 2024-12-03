@@ -4,7 +4,6 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-
 @media only screen and (min-width: 960px) {
     /* styles for browsers larger than 960px; */
     table {
@@ -113,19 +112,7 @@
         margin-right: 125px;
     }
 }
-@media only screen and (min-width: 1440px) {
-    /* styles for browsers larger than 1440px; */
-}
-@media only screen and (min-width: 2000px) {
-    /* for sumo sized (mac) screens */
-}
-@media only screen and (max-width: 480px) and (min-width: 720px) {
-   /* styles for mobile browsers smaller than 480px; (iPhone) */
-   .select2-selection{
-    margin-left: 10px;
-    width: 25%;
-    }
-    .select2-dropdown{
-        margin-left: 10px;
-    }
+
+.nav-link{
+  color: black;
 }
