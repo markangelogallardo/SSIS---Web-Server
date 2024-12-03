@@ -62,9 +62,10 @@ class Students(object):
                 return f"Inputted name '{name}' already exists."
     
 class Programs(object):
-    def __init__(self, prog_code=None, prog_name=None):
+    def __init__(self, prog_code=None, prog_name=None, college_code=None):
         self.prog_code = prog_code
         self.prog_name = prog_name
+        self.college_code = college_code
 
     @classmethod
     def all(cls):

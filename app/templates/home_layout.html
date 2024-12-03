@@ -23,7 +23,50 @@
   <body{% block body_attribs %}{% endblock body_attribs %}>
     {% block body -%}
     {% block navbar %}
-    
+    <div class = "container-fluid">
+      <div class="card text-center">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills">
+            {% if title == "Students"%}
+              <li class="nav-item active">
+                <a class="nav-link active" href="/student">Students</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link " href="/student">Students</a>
+              </li>
+            {%endif%}
+            {% if title == "Programs"%}
+              <li class="nav-item active">
+                <a class="nav-link active" href="/program">Programs</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="/program">Programs</a>
+              </li>
+            {%endif%}
+            {% if title == "Colleges"%}
+              <li class="nav-item active">
+                <a class="nav-link active" href="#" aria-disabled="true">Colleges</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="#" aria-disabled="true">Colleges</a>
+              </li>
+            {%endif%}
+            <li class="nav-item right" href="#">
+              {% block add %}
+              {%endblock add%}
+            </li>
+            <li class="nav-item right" href="#">
+              <form class="d-flex flex-row mb-3 " role="search" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="search"/>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
     {%- endblock navbar %}
     {% block content -%}
     {%- endblock content %}
@@ -34,7 +77,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
-    
+    <script src="static/js/search.js"></script>
     {%- endblock scripts %}
     {%- endblock body %}
   </body>

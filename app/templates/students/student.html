@@ -5,53 +5,11 @@
 {{super()}}
 {%- endblock styles %}
 
-{% block navbar %}
-<div class = "container-fluid">
-    <div class="card text-center">
-      <div class="card-header">
-        <ul class="nav nav-pills card-header-pills">
-          {% if title == "Students"%}
-            <li class="nav-item active">
-              <a class="nav-link active" href="#">Students</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link " href="#">Students</a>
-            </li>
-          {%endif%}
-          {% if title == "Programs"%}
-            <li class="nav-item active">
-              <a class="nav-link active" href="#">Programs</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="#">Programs</a>
-            </li>
-          {%endif%}
-          {% if title == "Colleges"%}
-            <li class="nav-item active">
-              <a class="nav-link active" href="#" aria-disabled="true">Colleges</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="#" aria-disabled="true">Colleges</a>
-            </li>
-          {%endif%}
-          <li class="nav-item right" href="#"></li>
-            <form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
-              <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>
-            </form>
-          </li>
-          <li class="nav-item right" href="#">
-            <form class="d-flex flex-row mb-3 " role="search" method="get">
-              <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="studentSearch"/>
-            </form>
-          </li>
-        </ul>
-      </div>
-    </div>
-</div>
-{%- endblock navbar %}
+{% block add %}
+<form action="{{ url_for('student.add_student') }}" method="get" class="add-form">
+  <button type="submit" id="add-item" class="btn btn-primary">Add Student</button>
+</form>
+{%- endblock add %}
 
 {%block content%}
 <div class="card-body">
@@ -67,7 +25,7 @@
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody id="studDeats">
+      <tbody id="details">
         {% for student in data %}
         <tr>
           <td>{{student[0]}}</td>
@@ -97,7 +55,6 @@
 </div>
   {%block scripts%}
   {{super()}}
-  <script src="static/js/students/search.js"></script>
   <script src="static/js/students/delStudModal.js"></script>
   {%endblock scripts%}
 {%endblock content%}
