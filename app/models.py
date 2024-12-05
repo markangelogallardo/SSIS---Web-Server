@@ -62,10 +62,11 @@ class Students(object):
                 return f"Inputted name '{name}' already exists."
     
 class Programs(object):
-    def __init__(self, prog_code=None, prog_name=None, college_code=None):
+    def __init__(self, prog_code=None, prog_name=None, college_code=None, new_prog_code=None):
         self.prog_code = prog_code
         self.prog_name = prog_name
         self.college_code = college_code
+        self.new_prog_code = new_prog_code
 
     @classmethod
     def all(cls):
@@ -75,12 +76,24 @@ class Programs(object):
         result = cursor.fetchall()
         return result
     
+    def get(prog_code):
+        cursor = mysql.connection.cursor()
+        val = (prog_code,)
+        sql = "SELECT * FROM programs WHERE Program_Code = %s"
+        cursor.execute(sql, val)
+        return cursor.fetchone()
+
     def add(self):
         cursor = mysql.connection.cursor()
 
         sql = """INSERT INTO programs(Program_Code,Program_Name,College_Code)
                 VALUES(%s, %s, %s)""" 
         cursor.execute(sql, (self.prog_code, self.prog_name, self.college_code))
+        mysql.connection.commit()
+    def edit(self):
+        cursor = mysql.connection.cursor()
+        sql = """UPDATE programs SET Program_Code = %s, Program_Name = %s, College_Code = %s WHERE Program_Code = %s"""
+        cursor.execute(sql, (self.new_prog_code, self.prog_name, self.college_code, self.prog_code))
         mysql.connection.commit()
 
     def input_error(error):

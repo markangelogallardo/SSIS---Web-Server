@@ -22,7 +22,7 @@ def add_program():
         return render_template('programs/programForms.html', title='Add Program', form=form)
     if request.method == 'POST': 
         if form.validate():
-            add_program = models.Programs(prog_code=prog_code, prog_name=prog_name, college_code=college_code)
+            add_program = models.Programs(prog_code=prog_code, prog_name=prog_name, college_code=college_code, new_prog_code=None)
             try:
                 add_program.add()
             except mysql.connection.Error as e:
@@ -30,3 +30,35 @@ def add_program():
                 flash(models.Programs.input_error(e), "danger")
 
     return render_template('programs/programForms.html', title='Add Program', form=form)
+
+@program_bp.route('/program/edit/<program_code>', methods=['POST','GET'])
+def edit_program(program_code):
+    form = ProgramForm(request.form)
+    colleges = models.Colleges.all()
+    form.college_code.choices = [(None, "Not Enrolled")] + [(college[0], college[0] + " (" + college[1] +")") for college in colleges]
+    orig_data = models.Programs.get(program_code)
+    if request.method == "GET":
+        form.prog_code.data = orig_data[0]
+        form.prog_name.data = orig_data[1]
+        form.college_code.data = orig_data[2]
+
+        return render_template('programs/programForms.html', title='Edit Program', form=form)
+    
+    if request.method == "POST":
+        edit_program = models.Programs(prog_code=orig_data[0], 
+                                    prog_name=form.prog_name.data.upper(), 
+                                    college_code=form.college_code.data, 
+                                    new_prog_code = form.prog_code.data)
+        form_arr = [form.prog_code.data, form.prog_name.data, form.college_code.data]    
+        orig_arr = np.array(orig_data)
+        are_equal = np.array_equal(orig_arr, form_arr)
+        try:
+            if are_equal:
+                flash(f"No changes made", "danger")
+            else:
+                edit_program.edit()
+                flash(f"Edit Succesful!", "success")
+        except mysql.connection.Error as e:
+                flash(models.Programs.input_error(e), "danger")
+        
+        return render_template('programs/programForms.html', title='Edit Program', form=form)

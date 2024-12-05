@@ -31,7 +31,9 @@
           <td>
             <div class="row" id="button-container">
               <div class="col" id="editBtn">
-                
+                <form action="{{ url_for('program.edit_program', program_code= program[0]) }}" method="get">
+                  <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
+                </form>
               </div>
               <div class="col">
                 
