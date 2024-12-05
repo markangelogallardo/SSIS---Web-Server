@@ -35,6 +35,7 @@ def add_student():
                                     gender=gender)
             try:
                 add_student.add()
+                flash(f"Added Student!", "success")
             except mysql.connection.Error as e:
                 flash(models.Students.input_error(e), "danger")
 
@@ -46,15 +47,16 @@ def edit_student(student_id):
     programs = models.Programs.all()
     form.prog_code.choices = [(None, "Not Enrolled")] + [(program[0], program[0] + " (" + program[1] +")") for program in programs]
     orig_data = models.Students.get(student_id)
+    id_num = orig_data[0]
     if request.method == "GET":
-        form.id_num.data = orig_data[0]
+        id_num = orig_data[0]
         form.first_name.data = orig_data[1]
         form.last_name.data = orig_data[2]
         form.prog_code.data = orig_data[3]
         form.year.data = orig_data[4]
         form.gender.data = orig_data[5]
 
-        return render_template('students/studentForms.html', title='Edit Student', form=form)
+        return render_template('students/studentForms.html', title='Edit Student', form=form, id_num=id_num)
     
     if request.method == "POST":
         edit_student = models.Students(id_num=orig_data[0], 
@@ -63,8 +65,9 @@ def edit_student(student_id):
                                     prog=form.prog_code.data if form.prog_code.data != 'None' else None, 
                                     year_lvl=form.year.data, 
                                     gender=form.gender.data)
-        form_arr = [form.id_num.data, form.first_name.data, form.last_name.data, form.prog_code.data, form.year.data, form.gender.data]    
+        form_arr = [form.first_name.data, form.last_name.data, form.prog_code.data, form.year.data, form.gender.data]    
         orig_arr = np.array(orig_data)
+        orig_arr = np.delete(orig_arr, 0)
         are_equal = np.array_equal(orig_arr, form_arr)
         try:
             if are_equal:
@@ -75,7 +78,7 @@ def edit_student(student_id):
         except mysql.connection.Error as e:
                 flash(models.Students.input_error(e), "danger")
         
-        return render_template('students/studentForms.html', title='Edit Student', form=form)
+        return render_template('students/studentForms.html', title='Edit Student', form=form, id_num=id_num)
 
 @student_bp.route('/student/delete/<student_id>', methods=['POST', 'GET'])
 def delete_student(student_id):

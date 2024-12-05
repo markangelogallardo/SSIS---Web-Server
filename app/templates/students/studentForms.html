@@ -26,8 +26,8 @@
             <div class="row mb-3 ">
                 {{ form.id_num.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
-                    {% if title == "Edit Student"%}
-                        {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182", disabled_="disabled")}}
+                    {% if id_num %}
+                        <p id="id-number">{{id_num}}</p>
                     {%else%}
                         {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182")}}
                     {%endif%}
