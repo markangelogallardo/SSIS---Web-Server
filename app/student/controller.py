@@ -84,5 +84,5 @@ def delete_student(student_id):
             models.Students.delete(student_id)
         except:
             flash(f"Unable to delete", "danger")
-    return redirect(url_for('student.index'))
+    return redirect(url_for('student.student_page'))
 

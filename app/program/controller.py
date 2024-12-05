@@ -62,3 +62,13 @@ def edit_program(program_code):
                 flash(models.Programs.input_error(e), "danger")
         
         return render_template('programs/programForms.html', title='Edit Program', form=form)
+    
+@program_bp.route('/program/delete/<program_code>', methods=['POST', 'GET'])
+def delete_program(program_code):
+    if request.method == "GET":
+        try:
+            models.Programs.delete(program_code)
+        except:
+            flash(f"Unable to delete", "danger")
+            
+    return redirect(url_for('program.program_page'))

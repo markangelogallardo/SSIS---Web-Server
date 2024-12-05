@@ -36,7 +36,9 @@
                 </form>
               </div>
               <div class="col">
-                
+                <form action="{{ url_for('program.delete_program', program_code= program[0]) }}" method="get">
+                  <button class="delBtn btn btn-danger" data-id="{{program[0]}}">Delete</button> 
+                </form>
               </div>
             </div>
           </td>
@@ -48,6 +50,6 @@
   {%block scripts%}
   {{super()}}
   <script src="static/js/search.js"></script>
-  <script src="static/js/students/delStudModal.js"></script>
+  <script src="static/js/programs/delProgModal.js"></script>
   {%endblock scripts%}
 {%endblock content%}

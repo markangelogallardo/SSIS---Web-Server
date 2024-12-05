@@ -96,6 +96,17 @@ class Programs(object):
         cursor.execute(sql, (self.new_prog_code, self.prog_name, self.college_code, self.prog_code))
         mysql.connection.commit()
 
+    @classmethod
+    def delete(cls, prog_code):
+        try:
+            cursor = mysql.connection.cursor()
+            sql = """DELETE FROM programs WHERE Program_Code = %s"""
+            cursor.execute(sql, (prog_code,))
+            mysql.connection.commit()
+            return True
+        except:
+            return False
+
     def input_error(error):
         if(error.args[0] == 1062):
             err_cause = error.args[1].split("'")[1]
