@@ -25,6 +25,8 @@ def create_app(test_config=None):
     app.register_blueprint(student_blueprint)
     from .program import program_bp as program_blueprint
     app.register_blueprint(program_blueprint)
+    from .college import college_bp as college_blueprint
+    app.register_blueprint(college_blueprint)
 
 
     return app

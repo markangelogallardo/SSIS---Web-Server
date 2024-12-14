@@ -150,10 +150,16 @@
       box-sizing: border-box;
     }
     
-    #fields{
+    #stud_fields{
       align-items: flex-start;
       height:37.6px;
       width: 125px;
+    }
+
+    #prog_fields{
+      align-items: flex-start;
+      height:37.6px;
+      width: 160px;
     }
 
     #add-item{

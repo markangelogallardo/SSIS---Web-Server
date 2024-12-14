@@ -22,9 +22,10 @@ def add_program():
         return render_template('programs/programForms.html', title='Add Program', form=form)
     if request.method == 'POST': 
         if form.validate():
-            add_program = models.Programs(prog_code=prog_code, prog_name=prog_name, college_code=college_code, new_prog_code=None)
+            add_program = models.Programs(prog_code=prog_code.upper(), prog_name=prog_name.upper(), college_code=college_code, new_prog_code=None)
             try:
                 add_program.add()
+                flash(f"Added Program!", "success")
             except mysql.connection.Error as e:
                 #flash(e, "danger")
                 flash(models.Programs.input_error(e), "danger")
@@ -35,7 +36,7 @@ def add_program():
 def edit_program(program_code):
     form = ProgramForm(request.form)
     colleges = models.Colleges.all()
-    form.college_code.choices = [(None, "Not Enrolled")] + [(college[0], college[0] + " (" + college[1] +")") for college in colleges]
+    form.college_code.choices = [(college[0], college[0] + " (" + college[1] +")") for college in colleges]
     orig_data = models.Programs.get(program_code)
     if request.method == "GET":
         form.prog_code.data = orig_data[0]
@@ -45,10 +46,10 @@ def edit_program(program_code):
         return render_template('programs/programForms.html', title='Edit Program', form=form)
     
     if request.method == "POST":
-        edit_program = models.Programs(prog_code=orig_data[0], 
+        edit_program = models.Programs(prog_code=orig_data[0].upper(), 
                                     prog_name=form.prog_name.data.upper(), 
                                     college_code=form.college_code.data, 
-                                    new_prog_code = form.prog_code.data)
+                                    new_prog_code = form.prog_code.data.upper())
         form_arr = [form.prog_code.data, form.prog_name.data, form.college_code.data]    
         orig_arr = np.array(orig_data)
         are_equal = np.array_equal(orig_arr, form_arr)

@@ -6,16 +6,15 @@
 {%- endblock styles %}
 
 {% block add %}
-<form action="{{ url_for('program.add_program') }}" method="get" class="add-form">
-    <button type="submit" id="add-item" class="btn btn-primary">Add Program</button>
+<form action="{{ url_for('college.add_college') }}" method="get" class="add-form">
+    <button type="submit" id="add-item" class="btn btn-primary">Add College</button>
 </form>
 {%- endblock add %}
 
 {% block fields %}
 <select type="submit" id="prog_fields" class="form-select">
-  <option value="Program Code">Program Code</option>
-  <option value="Program Name">Program Name</option>
   <option value="College Code">College Code</option>
+  <option value="College Name">College Name</option>
 </select>
 {%- endblock fields %}
 
@@ -24,28 +23,26 @@
   <table class="table">
       <thead>
         <tr id="columns">
-          <th scope="col">Program Code</th>
-          <th scope="col">Program Name</th>
           <th scope="col">College Code</th>
+          <th scope="col">College Name</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody id="details">
-        {% for program in data %}
+        {% for college in data %}
         <tr>
-          <td>{{program[0]}}</td>
-          <td>{{program[1]}}</td>
-          <td>{{program[2]}}</td>
+          <td>{{college[0]}}</td>
+          <td>{{college[1]}}</td>
           <td>
             <div class="row" id="button-container">
               <div class="col" id="editBtn">
-                <form action="{{ url_for('program.edit_program', program_code= program[0]) }}" method="get">
+                <form action="{{ url_for('college.edit_college', college_code= college[0]) }}" method="get">
                   <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
                 </form>
               </div>
               <div class="col">
-                <form action="{{ url_for('program.delete_program', program_code= program[0]) }}" method="get">
-                  <button class="delBtn btn btn-danger" data-id="{{program[0]}}">Delete</button> 
+                <form action="{{ url_for('college.delete_college', college_code= college[0]) }}" method="get">
+                  <button class="delBtn btn btn-danger" data-id="{{college[0]}}">Delete</button> 
                 </form>
               </div>
             </div>
@@ -57,7 +54,7 @@
 </div>
   {%block scripts%}
   {{super()}}
-  <script src="static/js/programs/search.js"></script>
-  <script src="static/js/programs/delProgModal.js"></script>
+  <script src="static/js/colleges/search.js"></script>
+  <script src="static/js/colleges/delColgModal.js"></script>
   {%endblock scripts%}
 {%endblock content%}
