@@ -11,6 +11,17 @@
 </form>
 {%- endblock add %}
 
+{% block fields %}
+<select type="submit" id="fields" class="form-select">
+  <option selected value="ID Number">ID</option>
+  <option value="First Name">First Name</option>
+  <option value="Last Name">Last Name</option>
+  <option value="Program Code">Program</option>
+  <option value="Year Level">Year</option>
+  <option value="Gender">Gender</option>
+</select>
+{%- endblock fields %}
+
 {%block content%}
 <div class="card-body">
   <table class="table">
@@ -28,12 +39,12 @@
       <tbody id="details">
         {% for student in data %}
         <tr>
-          <td>{{student[0]}}</td>
-          <td>{{student[1]}}</td>
-          <td>{{student[2]}}</td>
-          <td>{{student[3]}}</td>
-          <td>{{student[4]}}</td>
-          <td>{{student[5]}}</td>
+          <td class="idVal">{{student[0]}}</td>
+          <td class="firstNameVal">{{student[1]}}</td>
+          <td class="lastNameVal">{{student[2]}}</td>
+          <td class="programCode">{{student[3]}}</td>
+          <td class="yearVal">{{student[4]}}</td>
+          <td class="genderVal">{{student[5]}}</td>
           <td>
             <div class="row" id="button-container">
               <div class="col" id="editBtn">
@@ -55,7 +66,7 @@
 </div>
   {%block scripts%}
   {{super()}}
-  <script src="static/js/search.js"></script>
+  <script src="static/js/students/search.js"></script>
   <script src="static/js/students/delStudModal.js"></script>
   {%endblock scripts%}
 {%endblock content%}
