@@ -1,0 +1,63 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "home_layout.html"%}
+
+{%- block styles %}
+{{super()}}
+{%- endblock styles %}
+
+{% block add %}
+<form action="{{ url_for('program.add_program') }}" method="get" class="add-form">
+    <button type="submit" id="add-item" class="btn btn-primary">Add Program</button>
+</form>
+{%- endblock add %}
+
+{% block fields %}
+<select type="submit" id="prog_fields" class="form-select">
+  <option value="Program Code">Program Code</option>
+  <option value="Program Name">Program Name</option>
+  <option value="College Code">College Code</option>
+</select>
+{%- endblock fields %}
+
+{%block content%}
+<div class="card-body">
+  <table class="table">
+      <thead>
+        <tr id="columns">
+          <th scope="col">Program Code</th>
+          <th scope="col">Program Name</th>
+          <th scope="col">College Code</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody id="details">
+        {% for program in data %}
+        <tr>
+          <td>{{program[0]}}</td>
+          <td>{{program[1]}}</td>
+          <td>{{program[2]}}</td>
+          <td>
+            <div class="row" id="button-container">
+              <div class="col" id="editBtn">
+                <form action="{{ url_for('program.edit_program', program_code= program[0]) }}" method="get">
+                  <button type="submit" class="btn btn-warning" id="editModal">Edit</button> 
+                </form>
+              </div>
+              <div class="col">
+                <form action="{{ url_for('program.delete_program', program_code= program[0]) }}" method="get">
+                  <button class="delBtn btn btn-danger" data-id="{{program[0]}}">Delete</button> 
+                </form>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+  {%block scripts%}
+  {{super()}}
+  <script src="static/js/programs/search.js"></script>
+  <script src="static/js/programs/delProgModal.js"></script>
+  {%endblock scripts%}
+{%endblock content%}
