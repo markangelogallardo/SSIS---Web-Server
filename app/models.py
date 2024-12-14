@@ -143,7 +143,7 @@ class Colleges(object):
 
     def edit(self):
         cursor = mysql.connection.cursor()
-        sql = """UPDATE colleges SET College_Code = %s, College_Name = %s College_Code = %s"""
+        sql = """UPDATE colleges SET College_Code = %s, College_Name = %s WHERE College_Code = %s"""
         cursor.execute(sql, (self.new_college_code, self.college_code, self.college_code))
         mysql.connection.commit()
 

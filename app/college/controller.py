@@ -40,9 +40,9 @@ def edit_college(college_code):
         return render_template('colleges/collegeForms.html', title='Edit College', form=form)
     
     if request.method == "POST":
-        edit_college = models.Programs(college_code=orig_data[0],
+        edit_college = models.Colleges(college_code=orig_data[0],
                                        college_name=form.college_name.data.upper(),
-                                        new_prog_code = form.college_code.data)
+                                        new_college_code = form.college_code.data.upper())
         form_arr = [form.college_code.data, form.college_name.data]    
         orig_arr = np.array(orig_data)
         are_equal = np.array_equal(orig_arr, form_arr)
@@ -53,7 +53,7 @@ def edit_college(college_code):
                 edit_college.edit()
                 flash(f"Edit Succesful!", "success")
         except mysql.connection.Error as e:
-                flash(models.Programs.input_error(e), "danger")
+                flash(e, "danger")
         
         return render_template('colleges/collegeForms.html', title='Edit College', form=form)
     
