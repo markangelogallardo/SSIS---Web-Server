@@ -6,18 +6,17 @@ $(document).ready(function(){
       let matchColumn = true;
       if (value !== "") {
           let columnData = $(this).find("td:nth-child(" +
-              (field === "ID Number" ? 1 :
-                  (field === "First Name" ? 2 : 
-                    (field === "Last Name" ? 3 : 
-                      (field === "Program Code" ? 4 : 
-                        (field === "Year Level" ? 5 : 
-                          (field === "Gender" ? 6 : 7)))))) +
+              (field === "ID Number" ? 2 :
+                  (field === "First Name" ? 3 : 
+                    (field === "Last Name" ? 4 : 
+                      (field === "Program Code" ? 5 : 
+                        (field === "Year Level" ? 6 : 
+                          (field === "Gender" ? 7 : 8)))))) +
               ")").text().toLowerCase();
           matchColumn = columnData.indexOf(value) > -1;
       }
 
       $(this).toggle(matchColumn);
-          //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     })
   });
   

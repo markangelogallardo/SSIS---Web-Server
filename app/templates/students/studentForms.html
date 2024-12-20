@@ -21,8 +21,35 @@
         <a href="{{ url_for('student.student_page') }}" type="button" class="close" aria-label="Close"></a>
     </div>
     <div class="modal-body" id="studForm">
-        <form method="POST" id="student-form">
+        <form method="POST" id="student-form" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
+            <div class="row mb-3" id="profile-container">
+                <label class="col-sm-3 col-form-label" for="first_name">Profile Picture:</label>
+                <div class="col-sm-8" id="form-pic" style="margin-bottom: 20px;">
+                    <div class="col-sm-3">
+                        <img id="prof-pic" name="prof-pic" src="{{ prof_pic }}" alt="{{ prof_pic }}" border="3" height="100" width="100" />         
+                    </div>
+                    <!-- <div class="col-sm-3" id="button-div">
+                        <button id="reset-pic"class="btn btn-primary" style=" margin-top: 5px; width: 100px;"> Reset </button>
+                    </div> -->
+                    <input style="width: 245px;"class="form-control" type="file" name="upload-pic" id="upload-pic" value="{{ prof_pic}}" accept=".jpg, .jpeg, .png">
+                    <!-- {% if id_num %}
+                        <div class="col-sm-3">
+                            <img id="prof-pic" name="prof-pic" src="{{ prof_pic }}" alt="{{ prof_pic }}" border="3" height="100" width="100" />
+                        </div>
+                        <div class="col-sm-3" id="button-div">
+                            <button id="reset-pic" class="btn btn-primary" style="margin-bottom: 10px; width: 100px;"> Reset </button>
+                            <button id="remove-pic" class="btn btn-primary" style="width: 100px;"> Remove </button>
+                        </div>
+                        <input style="margin-top: 10px;"class="form-control" type="file" name="upload-pic" id="upload-pic" value="{{ prof_pic}}" accept=".jpg, .jpeg, .png">
+                    {%else%} -->
+                        
+                    <!-- {%endif%} -->
+                </div>
+                <input type="hidden" name="chosen-profile" id="chosen-profile" value="{{ prof_pic}}" readonly>
+                <input type="hidden" name="default-profile" id="default-profile" value="{{ url_for('static', filename='default_pic.jpg') }}" readonly>
+
+            </div>
             <div class="row mb-3 ">
                 {{ form.id_num.label(class="col-sm-3 col-form-label") }}
                 <div class="col-sm-8">
@@ -31,7 +58,6 @@
                     {%else%}
                         {{ form.id_num(id="idNum", class="form-control",  placeholder= "eg. 2022-0182")}}
                     {%endif%}
-
                 </div>
             </div>
             <div class="row mb-3">
@@ -75,6 +101,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="{{ url_for('static', filename='js/students/progChoice.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/students/pictureCases.js') }}"></script>
 {%- endblock scripts %}
 
 {%- endblock content %}

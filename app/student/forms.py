@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, SelectField
+from wtforms import StringField, FileField, validators, SelectField
 import app.models as models
 
 class StudentForm(FlaskForm):

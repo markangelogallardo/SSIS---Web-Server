@@ -168,5 +168,14 @@
     .nav-link{
       color: black;
     }
+
+    #form-pic{
+      padding-left: 25px;
+      display: flex;
+      align-items: center;
+    }
+    #button-div{
+      padding-bottom: 5px;
+    }
 }
 

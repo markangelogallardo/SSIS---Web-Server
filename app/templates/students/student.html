@@ -27,6 +27,7 @@
   <table class="table">
       <thead>
         <tr id="columns">
+          <th scope="col">Student Picture</th>
           <th scope="col">ID Number</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
@@ -39,6 +40,7 @@
       <tbody id="details">
         {% for student in data %}
         <tr>
+          <td class="profile"><img src="{{ pictures[student[0]] }}" alt="{{ student[0] }}" alt="" border="3" height="100" width="100" /></td>
           <td class="idVal">{{student[0]}}</td>
           <td class="firstNameVal">{{student[1]}}</td>
           <td class="lastNameVal">{{student[2]}}</td>

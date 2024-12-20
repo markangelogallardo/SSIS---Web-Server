@@ -1,28 +1,32 @@
 from app import mysql
-
+from flask import url_for
+from config import CLOUD_NAME
+from cloudinary.uploader import upload, destroy
+import cloudinary.api
+from datetime import datetime
 
 class Students(object):
-    def __init__(self, id_num=None, f_name=None, l_name=None, prog=None, year_lvl=None, gender=None):
+    def __init__(self, id_num=None, f_name=None, l_name=None, prog=None, year_lvl=None, gender=None, hasPicture=None):
         self.id = id_num
         self.f_name = f_name
         self.l_name = l_name
         self.prog = prog
         self.year_lvl = year_lvl
         self.gender = gender
-
+        self.hasPicture = hasPicture
 
     def add(self):
         cursor = mysql.connection.cursor()
 
-        sql = """INSERT INTO students(ID_Number,First_Name,Last_Name,Program_Code,Year_Level,Gender)
-                VALUES(%s, %s, %s, %s, %s, %s)""" 
+        sql = """INSERT INTO students(ID_Number,First_Name,Last_Name,Program_Code,Year_Level,Gender, hasPicture)
+                VALUES(%s, %s, %s, %s, %s, %s, %s)""" 
 
-        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender))
+        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender, int(self.hasPicture)))
         mysql.connection.commit()
     def edit(self):
         cursor = mysql.connection.cursor()
-        sql = """UPDATE students SET ID_Number = %s, First_Name = %s, Last_Name = %s, Program_Code = %s, Year_Level = %s, Gender = %s WHERE ID_Number = %s"""
-        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender, self.id))
+        sql = """UPDATE students SET ID_Number = %s, First_Name = %s, Last_Name = %s, Program_Code = %s, Year_Level = %s, Gender = %s, hasPicture= %s WHERE ID_Number = %s"""
+        cursor.execute(sql, (self.id, self.f_name, self.l_name, self.prog, self.year_lvl, self.gender, int(self.hasPicture), self.id))
         mysql.connection.commit()
 
     @classmethod
@@ -35,8 +39,6 @@ class Students(object):
             return True
         except:
             return False
-    
-
     @classmethod
     def all(cls):
         cursor = mysql.connection.cursor()
@@ -51,12 +53,34 @@ class Students(object):
         sql = "SELECT * FROM students WHERE ID_Number = %s"
         cursor.execute(sql, val)
         return cursor.fetchone()
-
+    
+    def get_pictures(hasPicture, id_num):
+        if hasPicture:
+            resource = cloudinary.api.resource(id_num)
+            latest_version = resource['version']
+            return f"https://res.cloudinary.com/{CLOUD_NAME}/image/upload/v{latest_version}/{id_num}.png"
+        else:
+            return f"https://res.cloudinary.com/{CLOUD_NAME}/image/upload/v1734186197/default_pic_hqgvcp.jpg" 
+    
+    def upload_picture(picture, id_num):
+        try:
+            upload_result = upload(picture, asset_folder="/Student_Pictures", public_id=id_num, invalidate=True, overwrite=True, resource_type="image", format="png")
+            return upload_result
+        except Exception as e:
+            raise e
+    
+    
+    def delete_picture(id_num):
+        try:
+            destroy(id_num)
+        except Exception as e:
+            raise e
+        
     def input_error(error):
         if(error.args[0] == 1062):
             err_cause = error.args[1].split("'")[1]
             if(len(err_cause) == 9 and err_cause[4]=='-'):
-                return f"Inputted ID Number '{err_cause}' already exists. Plz Change."
+                return f"Inputted ID Number '{err_cause}' already exists. Please Change."
             else:
                 name = err_cause.replace("-", " ")
                 return f"Inputted name '{name}' already exists."
